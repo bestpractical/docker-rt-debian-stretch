@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+my $hostname = `hostname`;
+chomp($hostname);
+
+warn "hostname : $hostname";
+
+my $new_conf_file = @ARGV[0] || '/opt/rt5/etc/RT_SiteConfig.pm';
+
+my $config = join("\n",
+                  sprintf('Set( $rtname, "%s");', $hostname),
+                  sprintf('Set($Organization, "%s");', $hostname),
+                  sprintf('Set($WebDomain, "%s");', $hostname),
+                  "1;\n");
+
+open (my $OUTFH, '>>', $new_conf_file) or die "couldn't open $new_conf_file : $!";
+print $OUTFH $config;
+close $OUTFH;
+
+
+
+
+

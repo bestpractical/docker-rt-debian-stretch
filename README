@@ -6,3 +6,17 @@ other deployments of RT with docker. Since it is used for testing, it
 includes development dependencies that are not needed for production RT deployments.
 
 Thanks to Christian Loos (GitHub:@cloos) for publishing RT docker examples.
+
+To build the image:
+
+docker build -t rt5-stretch .
+
+To run the application in docker :
+
+docker run --name rt5 --link mariadb:db --hostname rt5docker.local -p 5800:80 rt5-stretch
+
+The dockerfile exposes port 80 by default, you can change the mapped port as required.
+The docker image uses the hostname provided to set the RT configuration, so that you can add
+ it to /etc/hosts on the host machine and proxy it, allowing you to access it as http://rt5docker.local/
+ or other specified hostname directly in the browser
+
